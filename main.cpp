@@ -7,6 +7,19 @@
 #include <time.h>
 using namespace std;
 
+Color getcolor(const Ray &ray, vector<Shape*> shapes){
+  Color c = BLACK;
+  double mintime = -1;
+  for(int i = 0; i < shapes.size(); ++i){
+    double time = shapes[i]->intersection(ray).t;
+    if(time > 0 && (time < mintime || mintime == -1)){
+      mintime = time;
+      c = shapes[i]->color;
+    }
+  }
+  return c;
+}
+
 int main() {
   srand(time(NULL));
 
@@ -15,6 +28,9 @@ int main() {
   Image image(X, Y);
 
   Sphere sphere({0, 0, 50}, 30, RED);
+  Sphere sphere2({70, 70, 70}, 80, BLUE);
+  Plane plane({3.0/5.0, 4.0/5.0, 0}, 0, GREEN);
+  vector<Shape*> shapes = {&sphere, &sphere2, &plane};
 
   cerr << "finished initial calcs" << endl;
   for(double i = 0; i < X; ++i){
@@ -30,15 +46,12 @@ int main() {
       if(ANTI_ALIASING){
         for(int k = 0; k < CYCLES; ++k){
           Vec3 deviation = {(double)rand()/RAND_MAX, (double)rand()/RAND_MAX, (double)rand()/RAND_MAX};
-
-          double time = sphere.intersection({ray.start, ray.dir + deviation/200}).t;
-          if(time > 0) c = c + RED;
+          c = c + getcolor({ray.start, ray.dir + deviation/200}, shapes);
         }
         c = c/CYCLES;
       }
       else{
-        double time = sphere.intersection(ray).t;
-        if(time > 0) c = RED;
+        c = getcolor(ray, shapes);
       }
       
       image.setPixel(i, j, c);

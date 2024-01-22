@@ -33,7 +33,7 @@ public:
   Vec3 normal; //orientation (direction from origin to p), unit vector
   double dist; //multiple of normal (point of intersection)
 
-  Plane(Vec3 p_, double dist_, Color color_);
+  Plane(Vec3 normal_, double dist_, Color color_);
   Intersection intersection(Ray r);
 };
 //#endif

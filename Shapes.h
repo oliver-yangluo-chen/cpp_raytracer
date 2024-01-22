@@ -4,7 +4,6 @@
 #include <math.h>
 #include "Misc.h"
 //#include "Constants.h"
-using namespace std;
 
 
 struct Intersection {

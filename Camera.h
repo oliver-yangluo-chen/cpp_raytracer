@@ -3,7 +3,6 @@
 #pragma once
 #include <vector>
 #include "Misc.h"
-using namespace std;
 
 class Camera{
 private:

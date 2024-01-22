@@ -5,9 +5,8 @@
 #include "Camera.h"
 #include <stdlib.h>
 #include <time.h>
-using namespace std;
 
-Color getcolor(const Ray &ray, vector<Shape*> shapes){
+Color getcolor(const Ray &ray, std::vector<Shape*> shapes){
   Color c = BLACK;
   double mintime = -1;
   for(int i = 0; i < shapes.size(); ++i){
@@ -30,9 +29,9 @@ int main() {
   Sphere sphere({0, 0, 50}, 30, RED);
   Sphere sphere2({70, 70, 70}, 80, BLUE);
   Plane plane({3.0/5.0, 4.0/5.0, 0}, 0, GREEN);
-  vector<Shape*> shapes = {&sphere, &sphere2, &plane};
+  std::vector<Shape*> shapes = {&sphere, &sphere2, &plane};
 
-  cerr << "finished initial calcs" << endl;
+  std::cerr << "finished initial calcs" << std::endl;
   for(double i = 0; i < X; ++i){
     for(double j = 0; j < Y; ++j){
       double lX = lerp(-1, 1, i/(X-1)); //lerped X
@@ -58,5 +57,5 @@ int main() {
     }
   }
   image.writeToFile("circle.ppm");
-  cerr << "finished drawing" << endl;
+  std::cerr << "finished drawing" << std::endl;
 }

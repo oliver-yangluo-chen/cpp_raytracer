@@ -2,7 +2,6 @@
 //#define CONSTANT_H
 #pragma once
 #include "Misc.h"
-using namespace std;
 
 const double PI = 3.14159265358979;
 // M_PI
